@@ -307,14 +307,14 @@
                     <span class="timer-digit">5</span>
                     <span class="timer-digit">4</span>
                 </div>
-                <div class="pix-code">00020126580014br.gov.bcb.pix0136ca...</div>
-                <button class="button button-outline" style="margin-bottom: 1rem;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
-                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                    Copiar código
-                </button>
+              <div class="pix-code">00020126580014br.gov.bcb.pix0136ca...</div>
+<button class="button button-outline" style="margin-bottom: 1rem;" onclick="copyPixCode()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+    </svg>
+    Copiar código
+</button>
                 <button class="button">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
                         <polyline points="20 6 9 17 4 12"></polyline>
@@ -329,45 +329,64 @@
         </div>
     </main>
 
-    <script>
-        function showStep(step) {
-            document.querySelectorAll('.step-content').forEach(el => el.style.display = 'none');
-            document.getElementById('step' + step).style.display = 'block';
-            
-            document.querySelectorAll('.step-button').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.step-button')[step-1].classList.add('active');
+<div class="pix-code">00020126580014br.gov.bcb.pix0136ca...</div>
+<button class="button button-outline" style="margin-bottom: 1rem;" onclick="copyPixCode()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+    </svg>
+    Copiar código
+</button>
+
+<script>
+    function showStep(step) {
+        document.querySelectorAll('.step-content').forEach(el => el.style.display = 'none');
+        document.getElementById('step' + step).style.display = 'block';
+        
+        document.querySelectorAll('.step-button').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.step-button')[step-1].classList.add('active');
+    }
+
+    function selectPayment(method) {
+        document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+    }
+
+    function copyPixCode() {
+        const pixCode = document.querySelector('.pix-code').textContent;
+        navigator.clipboard.writeText(pixCode).then(() => {
+            alert('Código Pix copiado!');
+        }).catch(err => {
+            console.error('Erro ao copiar o código: ', err);
+        });
+    }
+
+    // Timer countdown
+    function updateTimer() {
+        const timerDigits = document.querySelectorAll('.timer-digit');
+        let minutes = parseInt(timerDigits[0].textContent + timerDigits[1].textContent);
+        let seconds = parseInt(timerDigits[2].textContent + timerDigits[3].textContent);
+        
+        seconds--;
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+        }
+        if (minutes < 0) {
+            minutes = 59;
         }
 
-        function selectPayment(method) {
-            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-        }
+        const minutesStr = minutes.toString().padStart(2, '0');
+        const secondsStr = seconds.toString().padStart(2, '0');
+        
+        timerDigits[0].textContent = minutesStr[0];
+        timerDigits[1].textContent = minutesStr[1];
+        timerDigits[2].textContent = secondsStr[0];
+        timerDigits[3].textContent = secondsStr[1];
+    }
 
-        // Timer countdown
-        function updateTimer() {
-            const timerDigits = document.querySelectorAll('.timer-digit');
-            let minutes = parseInt(timerDigits[0].textContent + timerDigits[1].textContent);
-            let seconds = parseInt(timerDigits[2].textContent + timerDigits[3].textContent);
-            
-            seconds--;
-            if (seconds < 0) {
-                seconds = 59;
-                minutes--;
-            }
-            if (minutes < 0) {
-                minutes = 59;
-            }
+    setInterval(updateTimer, 1000);
+</script>
 
-            const minutesStr = minutes.toString().padStart(2, '0');
-            const secondsStr = seconds.toString().padStart(2, '0');
-            
-            timerDigits[0].textContent = minutesStr[0];
-            timerDigits[1].textContent = minutesStr[1];
-            timerDigits[2].textContent = secondsStr[0];
-            timerDigits[3].textContent = secondsStr[1];
-        }
-
-        setInterval(updateTimer, 1000);
-    </script>
 </body>
 </html>
